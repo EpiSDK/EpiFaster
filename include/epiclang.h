@@ -9,6 +9,6 @@
     #define EPICLANG_H_
     
     #define EPICLANG_PLUGIN_PATH "/usr/lib/epiclang/plugins/epitech-plugin-banana.so"
-    #define EPICLANG_COMPILER "clang-20"
+    #define EPICLANG_COMPILER "clang"
 
 #endif /* EPICLANG_H_ */
