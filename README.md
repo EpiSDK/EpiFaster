@@ -29,4 +29,4 @@ epiclang <file.c>
 - `Makefile`: build system
 
 ## Author
-- Lukas-sgx
+- `@Lukas-sgx`
