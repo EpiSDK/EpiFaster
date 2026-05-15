@@ -37,7 +37,7 @@ fn handle_path_argument(arg: &str, files: &mut Vec<String>, directories: &mut Ve
     false
 }
 
-pub fn check_parameters(args: Vec<String>) -> Parameter {
+pub fn get_parameters(args: Vec<String>) -> Parameter {
     let mut build = false;
     let mut files: Vec<String> = vec![];
     let mut directories: Vec<String> = vec![];
