@@ -11,8 +11,8 @@ const EPICLANG_COMPILER: &str = "clang";
 
 pub fn compiler(files: Vec<String>, supplement_args: Vec<String>) {
     Command::new(EPICLANG_COMPILER)
-    .args(files)
-    .args(supplement_args)
-    .status()
-    .expect("Epiclang fail to build");
+        .args(files)
+        .args(supplement_args)
+        .status()
+        .expect("Epiclang fail to build");
 }
