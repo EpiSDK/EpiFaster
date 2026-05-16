@@ -9,10 +9,10 @@ use std::fs;
 use crate::options;
 
 pub struct Parameter {
-    build: bool,
-    directories: Vec<String>,
-    files: Vec<String>,
-    supplement_args: Vec<String>
+    pub build: bool,
+    pub directories: Vec<String>,
+    pub files: Vec<String>,
+    pub supplement_args: Vec<String>
 }
 
 fn assign_parameter(build: bool, directories: Vec<String>, files: Vec<String>, supplement_args: Vec<String>) -> Parameter {
@@ -50,7 +50,7 @@ pub fn get_parameters(args: Vec<String>) -> Parameter {
             "-b" | "--build" => build = true,
             _ => {
                 if !handle_path_argument(&arg, &mut files, &mut directories) && build {
-                    supplement_arg.push(arg);
+                    supplement_arg.push(arg.to_string());
                 }
             }
         }
