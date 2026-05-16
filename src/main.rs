@@ -6,14 +6,16 @@
 */
 
 use std::env;
+
 mod options;
 mod arguments;
-
-// const EPICLANG_COMPILER: &str = "clang";
+mod build;
 
 pub fn main() {
     let args: Vec<String> = env::args().skip(1).collect();
-    let mut param: arguments::Parameter;
+    let parameters = arguments::get_parameters(args);
 
-    param = arguments::get_parameters(args);
+    if parameters.build {
+        build::compiler(parameters.files, parameters.supplement_args);
+    }
 }
