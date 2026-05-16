@@ -6,8 +6,7 @@
 */
 
 use super::violation::Violation;
-use super::violation::Level;
 
 pub fn checker() {
-    println!("{}", Violation::new("C-F4", Some(42), Some(2), Level::Minor));
+    println!("{}", Violation::new("C-O3", Some(42), Some(43), Some(2), "src/file.c", None));
 }
