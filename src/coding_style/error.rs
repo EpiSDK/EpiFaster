@@ -27,8 +27,9 @@ pub const C_G5: &str = "non-header file include";
 pub const C_G7: &str = "trailing space";
 pub const C_G8: &str = "trailing empty line";
 pub const C_G10: &str = "inline assembler is forbidden";
-pub const C_O1: &str = "forbidden temp file";
+pub const C_O1: &str = "temp files are forbidden";
 pub const C_O2: &str = "source file must be .c or .h";
+pub const C_O4: &str = "file must be according to the snake_case convention";
 
 
 pub const REFERENCE: &[(&'static str, Option<&str>, Level)] = &[
@@ -65,6 +66,7 @@ pub const REFERENCE: &[(&'static str, Option<&str>, Level)] = &[
     ("C-O1", Some(C_O1), Level::Major),
     ("C-O2", Some(C_O2), Level::Major),
     ("C-O3", None, Level::Major),
+    ("C-O4", Some(C_O4), Level::Minor),
     ("C-V1", None, Level::Minor),
     ("C-V3", None, Level::Minor),
 ];
