@@ -5,12 +5,13 @@
 ** filename
 */
 
-use crate::coding_style::{abstract_syntax_tree::abstract_syntax_tree, violation::Violation};
+use std::fs;
+use crate::coding_style::{abstract_syntax_tree::abstract_syntax_tree, error, violation::Violation};
 
-pub fn checker(file: String) {
-    let err = Violation::new("C-A1", Some(0), Some(5), Some(0), Some(file.clone()), None);
+pub fn get_file_content(filename: String) -> String {
+    return fs::read_to_string(filename).expect(error::ERROR_LOAD_CONTENT);
+}
 
-    println!("{err}");
-    println!("{}", Violation::get_context(err));
-    abstract_syntax_tree(file);
+pub fn checker(file: String, infraction: &mut Violation) {
+    abstract_syntax_tree(file, infraction);
 }
