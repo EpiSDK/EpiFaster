@@ -45,11 +45,13 @@ impl Violation {
     pub fn get_warning(&self) {
         let infractions: Vec<&ViolationNode> = self.iter().collect();
     
-        for infraction in infractions.into_iter().rev() {
+        for infraction in infractions.clone().into_iter().rev() {
             println!("{infraction}");
             print!("{}", Violation::get_context(infraction));
         }
-        println!();
+        if infractions.iter().count() > 0 {
+            println!();
+        }
     }
     
     pub fn push(&mut self, reference: &'static str, line_start: Option<u32>, line_end: Option<u32>, column: Option<u32>, file: Option<String>, error: Option<String>) {
