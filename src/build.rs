@@ -9,7 +9,7 @@ use std::process::Command;
 
 const EPICLANG_COMPILER: &str = "clang";
 
-pub fn compiler(files: Vec<String>, supplement_args: Vec<String>) -> u32 {
+pub fn compiler(files: Vec<String>, supplement_args: Vec<String>) -> usize {
     let output = Command::new(EPICLANG_COMPILER)
         .arg("-fdiagnostics-color=always")
         .args(files)
@@ -24,7 +24,7 @@ pub fn compiler(files: Vec<String>, supplement_args: Vec<String>) -> u32 {
         if line.contains("generated.") && (line.contains("error") || line.contains("errors")) {
             if let Some(count) = line.split_whitespace().next().and_then(|str| {
                 clean_str = str.chars().filter(|char| char.is_ascii_digit()).collect();
-                clean_str.parse::<u32>().ok()
+                clean_str.parse::<usize>().ok()
             }) {
                 error_n = count;
             }

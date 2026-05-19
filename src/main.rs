@@ -14,7 +14,7 @@ mod build;
 mod coding_style;
 mod options;
 
-fn show_error(warning_generated: u32, error_compilation: u32) {
+fn show_error(warning_generated: usize, error_compilation: usize) {
     if warning_generated > 0 {
         if warning_generated > 1 {
             eprint!("{}", format!("{warning_generated} warnings").bright_white());
@@ -42,14 +42,14 @@ pub fn main() {
     let parameters = arguments::get_parameters(args);
     let files = parameters.files;
     let mut infraction = Violation::new();
-    let error_compilation: u32;
-    let warning_generated: u32;
+    let error_compilation: usize;
+    let warning_generated: usize;
 
     for file in files.clone() {
         coding_style::banana::checker(file.clone(), &mut infraction);
     }
     Violation::get_warning(&infraction);
     error_compilation = build::compiler(files, parameters.supplement_args);
-    warning_generated = infraction.iter().count() as u32;
+    warning_generated = infraction.iter().count() as usize;
     show_error(warning_generated, error_compilation);
 }

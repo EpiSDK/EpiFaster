@@ -19,9 +19,9 @@ pub enum Level {
 
 pub struct ViolationNode {
     pub reference: &'static str,
-    pub line_start: Option<u32>,
-    pub line_end: Option<u32>,
-    pub column: Option<u32>,
+    pub line_start: Option<usize>,
+    pub line_end: Option<usize>,
+    pub column: Option<usize>,
     pub file: Option<String>,
     pub error: Option<String>,
     pub next: Option<Box<ViolationNode>>,
@@ -54,7 +54,7 @@ impl Violation {
         // }
     }
     
-    pub fn push(&mut self, reference: &'static str, line_start: Option<u32>, line_end: Option<u32>, column: Option<u32>, file: Option<String>, error: Option<String>) {
+    pub fn push(&mut self, reference: &'static str, line_start: Option<usize>, line_end: Option<usize>, column: Option<usize>, file: Option<String>, error: Option<String>) {
         let new_node = Box::new(ViolationNode{
             reference,
             line_start,

@@ -14,8 +14,8 @@ pub struct ParsedFile {
 }
 
 pub struct Rules {
-    pub function: u32,
-    pub static_function: u32,
+    pub function: usize,
+    pub static_function: usize,
     pub file: String,    
 }
 

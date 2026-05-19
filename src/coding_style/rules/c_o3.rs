@@ -8,8 +8,8 @@
 use tree_sitter::Node;
 use crate::coding_style::abstract_syntax_tree::Rules;
 
-const MAX_FUNCTION: u32 = 10;
-const MAX_NO_STATIC_FUNCTION: u32 = 5;
+const MAX_FUNCTION: usize = 10;
+const MAX_NO_STATIC_FUNCTION: usize = 5;
 
 pub fn max_static(rules: &mut Rules) -> Option<String> {
     let mut error: String;
@@ -23,11 +23,11 @@ pub fn max_static(rules: &mut Rules) -> Option<String> {
     None
 }
 
-pub fn max_function(rules: &mut Rules, node: Node<'_>) -> (Option<String>, u32, u32) {
+pub fn max_function(rules: &mut Rules, node: Node<'_>) -> (Option<String>, usize, usize) {
     let static_error = max_static(rules);
     let mut error: String;
-    let line_start = node.start_position().row as u32 + 1;
-    let line_end = node.end_position().row as u32 + 1;
+    let line_start = node.start_position().row as usize + 1;
+    let line_end = node.end_position().row as usize + 1;
 
     if rules.function > MAX_FUNCTION {
         error = match static_error.clone() {
