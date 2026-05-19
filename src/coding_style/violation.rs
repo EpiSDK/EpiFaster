@@ -44,14 +44,15 @@ impl Violation {
 
     pub fn get_warning(&self) {
         let infractions: Vec<&ViolationNode> = self.iter().collect();
+        let mut context: String;
     
         for infraction in infractions.iter().rev() {
-            println!("{infraction}");
-            print!("{}", Violation::get_context(infraction));
+            eprintln!("{infraction}");
+            context = Violation::get_context(infraction);
+            if !context.is_empty() {
+                eprintln!("{context}");
+            }
         }
-        // if infractions.len() > 0 {
-        //     println!();
-        // }
     }
     
     pub fn push(&mut self, reference: &'static str, line_start: Option<usize>, line_end: Option<usize>, column: Option<usize>, file: Option<String>, error: Option<String>) {
@@ -74,7 +75,7 @@ impl Violation {
 
     pub fn get_context(violation: &ViolationNode) -> String {
         let file = banana::get_file_content(violation.file.as_deref().unwrap_or_default().to_string());
-        let line_start = (violation.line_start.unwrap_or(0) as usize - 1).saturating_sub(1);
+        let line_start = (violation.line_start.unwrap_or(0) as usize).saturating_sub(1);
         let line_end = (violation.line_end.unwrap_or(0) as usize).saturating_sub(1);
 
         if violation.line_start.is_none() && violation.line_end.is_none() {
