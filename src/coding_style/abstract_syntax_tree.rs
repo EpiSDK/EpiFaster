@@ -5,7 +5,7 @@
 ** filename
 */
 
-use crate::coding_style::{banana, rules::{self, c_g1::is_valid_epitech_header}, violation::Violation};
+use crate::coding_style::{banana, rules, violation::Violation};
 use tree_sitter::{Node, Parser};
 use std::path::Path;
 
@@ -52,7 +52,7 @@ fn handle_comment(node: Node<'_>, source_bytes: &[u8], rules: &mut Rules, infrac
     let line_end = node.end_position().row + 1;
 
     *comment_number += 1;   
-    if !is_valid_epitech_header(&comment.to_string()) && *comment_number == 1 && line_start == 0 {
+    if !rules::c_g1::is_valid_epitech_header(&comment.to_string()) && *comment_number == 1 && line_start == 0 {
         Violation::push(infraction, "C-G1", Some(line_start), Some(line_end), Some(0), Some(rules.file.clone()), None);
     }
     if line_start != 0 {
