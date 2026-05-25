@@ -30,7 +30,8 @@ pub fn parse(content: &str) -> Option<ParsedFile> {
 
 fn handle_function(node: Node<'_>, source_bytes: &[u8], rules: &mut Rules, infraction: &mut Violation) {
     let mut cursor = node.walk();
-
+    
+    rules::c_g2::check_separation_function(node, rules, infraction);
     for child in node.children(&mut cursor) {
         if let Ok(text) = child.utf8_text(source_bytes) {
             match child.kind() {
@@ -42,7 +43,15 @@ fn handle_function(node: Node<'_>, source_bytes: &[u8], rules: &mut Rules, infra
         }
     }
     if let (Some(name), line, col) = rules::c_o3::max_function(rules, node) {
-        Violation::push(infraction, "C-O3", Some(line), Some(col), Some(0), Some(rules.file.clone()), Some(name));
+        Violation::push(
+            infraction,
+            "C-O3",
+            Some(line),
+            Some(col),
+            Some(0),
+            Some(rules.file.clone()),
+            Some(name)
+        );
     }
 }
 
