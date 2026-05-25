@@ -5,7 +5,7 @@
 ** filename
 */
 
-use crate::coding_style::{banana, rules, violation::Violation};
+use crate::coding_style::{banana, rules::{self, c_g1::is_valid_epitech_header}, violation::Violation};
 use tree_sitter::{Node, Parser};
 use std::path::Path;
 
@@ -46,10 +46,25 @@ fn handle_function(node: Node<'_>, source_bytes: &[u8], rules: &mut Rules, infra
     }
 }
 
+fn handle_comment(node: Node<'_>, source_bytes: &[u8], rules: &mut Rules, infraction: &mut Violation, comment_number: &mut u32) {
+    let comment = node.utf8_text(source_bytes).unwrap_or("");
+    let line_start = node.start_position().row;
+    let line_end = node.end_position().row + 1;
+
+    *comment_number += 1;   
+    if !is_valid_epitech_header(&comment.to_string()) && *comment_number == 1 && line_start == 0 {
+        Violation::push(infraction, "C-G1", Some(line_start), Some(line_end), Some(0), Some(rules.file.clone()), None);
+    }
+    if line_start != 0 {
+        *comment_number -= 1;
+    }
+}
+
 fn walk(root_node: Node<'_>, source_bytes: &[u8], filename: String, infraction: &mut Violation) {
     let mut cursor = root_node.walk();
     let mut rules = Rules{function: 0, static_function: 0, file: filename};
     let mut node;
+    let mut comment_number = 0;
 
     if let Some(file_trunc) = Path::new(&rules.file).file_stem().and_then(|s| s.to_str()) {
         if !rules::c_o4::is_snake_case(file_trunc) {
@@ -61,12 +76,16 @@ fn walk(root_node: Node<'_>, source_bytes: &[u8], filename: String, infraction: 
             node = cursor.node();
             match node.kind() {
                 "function_definition" => handle_function(node, source_bytes, &mut rules, infraction),
-                _ => {}
+                "comment" => handle_comment(node, source_bytes, &mut rules, infraction, &mut comment_number),
+                _ => {println!("{}", node.kind())}
             }
             if !cursor.goto_next_sibling() {
                 break;
             }
         }
+        if comment_number == 0 {
+            Violation::push(infraction, "C-G1", Some(0), Some(0), Some(0), Some(rules.file.clone()), None);
+        } 
         cursor.goto_parent();
     }
 }
