@@ -14,7 +14,7 @@ pub fn main() {
     let mut args: Vec<String> = env::args().skip(1).collect();
     let home_dir = env::var("HOME").expect("Error: home directory not found");
 
-    args.push(format!("-fplugin={}/{}", home_dir.display(), EPICLANG_PLUGIN_PATH));
+    args.push(format!("-fplugin={}/{}", home_dir, EPICLANG_PLUGIN_PATH));
 
     Command::new(EPICLANG_COMPILER)
         .args(args)
