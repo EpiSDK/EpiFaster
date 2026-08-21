@@ -7,7 +7,7 @@
 
 use std::{env, process::Command};
 
-const EPICLANG_PLUGIN_PATH: &str = ".local/lib/epiclang/plugins/epitech-plugin-banana.so";
+const EPICLANG_PLUGIN_PATH: &str = "/opt/epiclang/lib/epiclang/plugins/epitech-plugin-banana.so";
 const EPICLANG_COMPILER: &str = "clang";
 
 pub fn main() {

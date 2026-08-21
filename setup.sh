@@ -1,4 +1,4 @@
-mkdir -p $HOME/.local/lib/epiclang/
+mkdir -p /opt/lib/epiclang/
 mkdir -p $HOME/.local/bin/
 cp -r ./plugins $HOME/.local/lib/epiclang/
 cargo build -r
