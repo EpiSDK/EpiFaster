@@ -12,7 +12,7 @@ const EPICLANG_COMPILER: &str = "clang";
 
 pub fn main() {
     let mut args: Vec<String> = env::args().skip(1).collect();
-    let home_dir = env::home_dir().expect("Error: home directory not found");
+    let home_dir = env::var("HOME").expect("Error: home directory not found");
 
     args.push(format!("-fplugin={}/{}", home_dir.display(), EPICLANG_PLUGIN_PATH));
 
