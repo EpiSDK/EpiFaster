@@ -8,7 +8,7 @@
 use std::{env, process::Command};
 
 const EPICLANG_PLUGIN_PATH: &str = "/opt/epiclang/lib/plugins/epitech-plugin-banana.so";
-const EPICLANG_COMPILER: &str = "clang";
+const EPICLANG_COMPILER: &str = "clang-21";
 
 pub fn main() {
     let mut args: Vec<String> = env::args().skip(1).collect();
