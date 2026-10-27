@@ -15,7 +15,7 @@ pub fn main() {
     let compiler = env::var("CC").unwrap_or_else(|_| DEFAULT_COMPILER.to_string());
 
     if args.iter().any(|v| v == "--version-epiclang") {
-        println!("epiclang v{}", env!("CARGO_PKG_VERSION"));
+        println!("{} v{}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"));
         return;
     }
 
